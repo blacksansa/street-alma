@@ -157,7 +157,7 @@ export default async function HomePage() {
         <p className="text-cinza max-w-xl mb-12">A primeira aula experimental é por nossa conta.</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-0.5 bg-laranja/30 border-2 border-laranja">
           {displayModalities.map((m) => (
-            <div key={'id' in m ? m.id : m.name} className="bg-preto p-8 hover:bg-grafite transition">
+            <div key={m.name} className="bg-preto p-8 hover:bg-grafite transition">
               <h3 className="font-display font-extrabold uppercase text-2xl mb-2">{m.name}</h3>
               <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-laranja border border-laranja px-2 py-0.5 mb-3">
                 {m.level}

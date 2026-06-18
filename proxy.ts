@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const isAuth = req.cookies.get('sa_auth')?.value === 'ok';
   const isDashboard = req.nextUrl.pathname.startsWith('/dashboard');
 
