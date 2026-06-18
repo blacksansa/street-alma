@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Archivo:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  background: #0B0A09;
+  color: #F4EFE8;
+  font-family: 'Archivo', sans-serif;
+}
+
+::selection { background: #FF5C00; color: #0B0A09; }
+
+@layer components {
+  .btn-cheio {
+    @apply inline-block bg-laranja text-preto font-bold uppercase tracking-widest text-sm px-8 py-4 border-2 border-laranja hover:bg-laranja-claro hover:border-laranja-claro transition;
+  }
+  .btn-vazio {
+    @apply inline-block text-laranja font-bold uppercase tracking-widest text-sm px-8 py-4 border-2 border-laranja hover:bg-laranja/10 transition;
+  }
+  .input-base {
+    @apply w-full bg-grafite border border-laranja/40 text-areia px-4 py-3 outline-none focus:border-laranja transition;
+  }
+  .label-base {
+    @apply block text-xs font-bold uppercase tracking-widest text-laranja mb-2;
+  }
+}
+
+@keyframes rolar {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track { animation: rolar 22s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
