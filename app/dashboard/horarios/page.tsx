@@ -120,37 +120,70 @@ export default function HorariosPage() {
           Nenhum horário cadastrado. Use o formulário acima.
         </div>
       ) : (
-        <div className="border-2 border-laranja overflow-x-auto">
-          <table className="w-full min-w-[700px]">
-            <thead>
-              <tr className="bg-preto">
-                <th className="text-left px-5 py-4 font-display text-lg uppercase tracking-wide text-laranja">Dia</th>
-                <th className="text-left px-5 py-4 font-display text-lg uppercase tracking-wide text-laranja">Horário</th>
-                <th className="text-left px-5 py-4 font-display text-lg uppercase tracking-wide text-laranja">Modalidade</th>
-                <th className="text-left px-5 py-4 font-display text-lg uppercase tracking-wide text-laranja">Turma</th>
-                <th className="px-5 py-4"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.map((s) => (
-                <tr key={s.id} className="border-t border-laranja/20 bg-carvao">
-                  <td className="px-5 py-4 text-laranja font-semibold">{s.day}</td>
-                  <td className="px-5 py-4">{s.time}</td>
-                  <td className="px-5 py-4">{s.modality}</td>
-                  <td className="px-5 py-4 text-cinza">{s.level ?? '—'}</td>
-                  <td className="px-5 py-4 text-right">
-                    <button
-                      onClick={() => remover(s.id)}
-                      className="text-xs uppercase tracking-widest font-bold text-red-400 hover:text-red-300"
-                    >
-                      Remover
-                    </button>
-                  </td>
+        <>
+          {/* Mobile: cards por dia */}
+          <div className="flex flex-col gap-3 md:hidden">
+            {DIAS.filter((dia) => items.some((s) => s.day === dia)).map((dia) => (
+              <div key={dia} className="border-2 border-laranja">
+                <div className="bg-preto px-4 py-2">
+                  <span className="font-display font-extrabold uppercase text-laranja tracking-wide">{dia}</span>
+                </div>
+                <div className="divide-y divide-laranja/20">
+                  {items.filter((s) => s.day === dia).map((s) => (
+                    <div key={s.id} className="px-4 py-3 flex items-center justify-between gap-3 bg-carvao">
+                      <div className="min-w-0">
+                        <p className="font-semibold text-sm truncate">{s.modality}</p>
+                        <p className="text-xs text-cinza mt-0.5">{s.time}</p>
+                        {s.level && (
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-laranja mt-0.5">{s.level}</p>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => remover(s.id)}
+                        className="shrink-0 text-xs uppercase tracking-widest font-bold text-red-400 hover:text-red-300"
+                      >
+                        Remover
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: tabela */}
+          <div className="hidden md:block border-2 border-laranja overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-preto">
+                  <th className="text-left px-5 py-4 font-display text-lg uppercase tracking-wide text-laranja">Dia</th>
+                  <th className="text-left px-5 py-4 font-display text-lg uppercase tracking-wide text-laranja">Horário</th>
+                  <th className="text-left px-5 py-4 font-display text-lg uppercase tracking-wide text-laranja">Modalidade</th>
+                  <th className="text-left px-5 py-4 font-display text-lg uppercase tracking-wide text-laranja">Turma</th>
+                  <th className="px-5 py-4" />
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {items.map((s) => (
+                  <tr key={s.id} className="border-t border-laranja/20 bg-carvao">
+                    <td className="px-5 py-4 text-laranja font-semibold">{s.day}</td>
+                    <td className="px-5 py-4 text-sm">{s.time}</td>
+                    <td className="px-5 py-4 text-sm">{s.modality}</td>
+                    <td className="px-5 py-4 text-sm text-cinza">{s.level ?? '—'}</td>
+                    <td className="px-5 py-4 text-right">
+                      <button
+                        onClick={() => remover(s.id)}
+                        className="text-xs uppercase tracking-widest font-bold text-red-400 hover:text-red-300"
+                      >
+                        Remover
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );
